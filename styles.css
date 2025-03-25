@@ -1,0 +1,920 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-margin: #ffd700;
+    --color-border: #ff6b6b;
+    --color-padding: #4ecdc4;
+    --color-content: #45b7d1;
+    --color-background: #f8f9fa;
+    --color-text: #2c3e50;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--color-background);
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    color: var(--color-text);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: var(--color-text);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Navegación de Lecciones */
+.lesson-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.lesson-btn {
+    flex: 1;
+    max-width: 300px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1em;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 
+        0 4px 15px rgba(0,0,0,0.1),
+        inset 0 -4px 0 rgba(0,0,0,0.1);
+}
+
+.lesson-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.lesson-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.lesson-btn.active {
+    background: linear-gradient(145deg, #4361ee, #3451d1);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(67,97,238,0.3),
+        inset 0 -4px 0 rgba(0,0,0,0.2);
+}
+
+/* Dimension Labels */
+.dimension-labels {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.dimension-labels span {
+    background: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.1);
+    color: var(--color-text);
+}
+
+/* Lesson 3: Box Sizing Controls */
+.sizing-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: var(--radius-md);
+}
+
+.control-group label {
+    min-width: 80px;
+    font-weight: 600;
+}
+
+.value-display {
+    min-width: 60px;
+    text-align: right;
+    font-family: monospace;
+}
+
+/* Input Range Styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, #4361ee, #6b8aff);
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border: 3px solid #4361ee;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(67,97,238,0.3);
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #4361ee;
+    border-color: white;
+}
+
+input[type="range"]:hover {
+    height: 10px;
+}
+
+/* Elementos arrastrables */
+.elements-to-drag {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+    perspective: 1000px;
+}
+
+.draggable {
+    padding: 15px 25px;
+    border-radius: var(--radius-md);
+    cursor: grab;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+        5px 5px 10px rgba(0,0,0,0.1),
+        -5px -5px 10px rgba(255,255,255,0.8);
+    position: relative;
+    overflow: hidden;
+    background: white;
+    transform-style: preserve-3d;
+}
+
+.draggable[data-type="margin"] {
+    background: linear-gradient(145deg, var(--color-margin), #ffe44d);
+    color: #806a00;
+}
+
+.draggable[data-type="border"] {
+    background: linear-gradient(145deg, var(--color-border), #ff8585);
+    color: #800000;
+}
+
+.draggable[data-type="padding"] {
+    background: linear-gradient(145deg, var(--color-padding), #6bded6);
+    color: #1a5652;
+}
+
+.draggable[data-type="content"] {
+    background: linear-gradient(145deg, var(--color-content), #62cfe7);
+    color: #1a4d5e;
+}
+
+.draggable:hover {
+    transform: translateY(-5px) rotateX(10deg);
+    box-shadow: 
+        8px 8px 16px rgba(0,0,0,0.2),
+        -8px -8px 16px rgba(255,255,255,0.9);
+}
+
+.draggable.dragging {
+    transform: scale(1.1) translateY(-10px);
+    box-shadow: 
+        12px 12px 20px rgba(0,0,0,0.15),
+        -12px -12px 20px rgba(255,255,255,0.9);
+    opacity: 0.9;
+}
+
+/* Box Model Zones */
+.box-model-visual {
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drop-zone {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.margin-zone {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-margin);
+    opacity: 0.1;
+    border: 3px dashed rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-lg);
+}
+
+.border-zone {
+    width: 80%;
+    height: 80%;
+    background-color: var(--color-border);
+    opacity: 0.1;
+    border: 3px dashed rgba(0, 0, 0, 0.2);
+    border-radius: calc(var(--radius-lg) - 5px);
+}
+
+.padding-zone {
+    width: 60%;
+    height: 60%;
+    background-color: var(--color-padding);
+    opacity: 0.1;
+    border: 3px dashed rgba(0, 0, 0, 0.2);
+    border-radius: calc(var(--radius-lg) - 10px);
+}
+
+.content-zone {
+    width: 40%;
+    height: 40%;
+    background-color: var(--color-content);
+    opacity: 0.1;
+    border: 3px dashed rgba(0, 0, 0, 0.2);
+    border-radius: calc(var(--radius-lg) - 15px);
+}
+
+.zone-label {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: rgba(0,0,0,0.6);
+    position: absolute;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.zone-label.placed {
+    color: white;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.drop-zone.highlight {
+    border-style: solid;
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(67,97,238,0.3);
+}
+
+.drop-zone.filled {
+    opacity: 0.8;
+    border: none;
+}
+
+/* Interactive Boxes */
+.interactive-box {
+    position: relative;
+    margin: 20px 0;
+}
+
+.box-content {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    background-color: var(--color-content);
+    border: 2px solid var(--color-border);
+    padding: 20px;
+    margin: 10px;
+    transition: all 0.3s ease;
+}
+
+.padding-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-padding);
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.margin-indicator {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background-color: var(--color-margin);
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* Box Sizing Demo */
+.box-sizing-demo {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.sizing-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.sizing-box {
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    padding: 25px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.sizing-box h3 {
+    color: var(--color-text);
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.demo-element {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+.box-inner {
+    background: linear-gradient(145deg, var(--color-content), #62cfe7);
+    border: 2px solid var(--color-border);
+    padding: 20px;
+    margin: 10px;
+    border-radius: var(--radius-sm);
+    color: white;
+    text-align: left;
+}
+
+.box-inner p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.box-formula {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+    font-size: 1em;
+    line-height: 1.4;
+    color: var(--color-text);
+}
+
+.box-arrows {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.arrow-label {
+    position: absolute;
+    background: rgba(255,255,255,0.9);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Highlight and Feedback States */
+.drop-zone.highlight {
+    border-style: solid;
+    transform: scale(1.02);
+}
+
+.drop-zone.incorrect {
+    animation: shake 0.5s ease-in-out;
+    border-color: #ff6b6b;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Lección 2: Dimensiones y Espaciado */
+.two-boxes-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.box-wrapper {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+/* Feedback */
+.feedback {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: var(--radius-md);
+    background: white;
+    box-shadow: var(--shadow-md);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.feedback::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #4361ee;
+    transition: all 0.4s ease;
+}
+
+.feedback.success::before {
+    background: #4ecdc4;
+}
+
+.feedback.warning::before {
+    background: #ffd700;
+}
+
+.feedback.error::before {
+    background: #ff6b6b;
+}
+
+.feedback-text {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.feedback.success {
+    background: linear-gradient(145deg, #ffffff, #f0fff9);
+    transform: translateY(-5px);
+}
+
+.feedback.warning {
+    background: linear-gradient(145deg, #ffffff, #fffdf0);
+}
+
+.feedback.error {
+    background: linear-gradient(145deg, #ffffff, #fff0f0);
+}
+
+/* Mejoras adicionales para el Box Model */
+.box-model-visual {
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.box-model-visual:hover {
+    transform: scale(1.02) translateY(-10px);
+}
+
+.drop-zone {
+    backdrop-filter: blur(5px);
+    border-width: 4px;
+    border-style: dashed;
+    border-color: rgba(0,0,0,0.1);
+}
+
+.drop-zone.highlight {
+    border-color: rgba(67,97,238,0.5);
+    background: rgba(255,255,255,0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .lesson-navigation {
+        flex-direction: column;
+    }
+
+    .box-model-visual {
+        width: 100%;
+        height: 300px;
+    }
+
+    .two-boxes-container {
+        flex-direction: column;
+    }
+
+    .sizing-boxes {
+        flex-direction: column;
+    }
+
+    .sizing-controls {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .control-group {
+        padding: 20px;
+    }
+
+    .control-row {
+        grid-template-columns: 80px 1fr 70px;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .control-row label {
+        font-size: 1em;
+    }
+
+    .control-row .value-display {
+        font-size: 1em;
+        padding: 6px 10px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .sizing-controls {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .sizing-controls .control-group.dimensions {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Contenido de las Lecciones */
+.lesson {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 30px;
+}
+
+.lesson.hidden {
+    display: none;
+}
+
+/* Lesson 4: Clockwise Rule */
+.lesson-description {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: var(--color-text);
+}
+
+.clockwise-demo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.interactive-box-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 20px;
+}
+
+.clockwise-box {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background: var(--color-background);
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+}
+
+.direction-indicators {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.direction {
+    position: absolute;
+    background: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.direction.active {
+    background: var(--color-content);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.direction.top {
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.direction.right {
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.direction.bottom {
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.direction.left {
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.demo-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background: white;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    z-index: 0;
+    border: solid;
+    border-color: var(--color-border);
+    min-width: 100px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.clockwise-controls {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+}
+
+.property-section {
+    margin-bottom: 30px;
+}
+
+.property-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.property-btn {
+    background: var(--color-background);
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.property-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.property-btn.active {
+    background: var(--color-content);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.value-inputs {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    background: var(--color-background);
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+}
+
+.input-group:hover {
+    transform: translateX(10px);
+    box-shadow: var(--shadow-sm);
+}
+
+.shorthand-display {
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--color-background);
+    border-radius: var(--radius-md);
+}
+
+.code-display {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.1em;
+    padding: 15px;
+    background: white;
+    border-radius: var(--radius-sm);
+    margin: 10px 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.property-name {
+    color: #4361ee;
+    font-weight: 600;
+}
+
+.shorthand-value {
+    color: #2c3e50;
+}
+
+.shorthand-explanation {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 10px;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .clockwise-demo {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Ensure the lesson is visible when active */
+.lesson:not(.hidden) {
+    display: block;
+}
+
+/* Add transitions for property changes */
+.demo-content {
+    transition: margin 0.3s ease, padding 0.3s ease, border-width 0.3s ease;
+}
+
+/* Footer Styles */
+.footer {
+    width: 100%;
+    background: white;
+    padding: 30px 0;
+    margin-top: 60px;
+    box-shadow: var(--shadow-md);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-info {
+    text-align: center;
+}
+
+.footer p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--color-text);
+}
+
+.copyright {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.credits {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.footer .author,
+.footer .program {
+    color: var(--color-content);
+    font-weight: 700;
+    padding: 0 5px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.footer .author::after,
+.footer .program::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-content);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.footer .author:hover::after,
+.footer .program:hover::after {
+    transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 20px 0;
+        margin-top: 40px;
+    }
+    
+    .footer p {
+        font-size: 1em;
+    }
+}

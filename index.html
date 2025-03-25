@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Box Model!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Learn Box Model!</h1>
+        
+        <div class="lesson-navigation">
+            <button class="lesson-btn active" data-lesson="1">
+                <span class="emoji">📦</span>
+                Lesson 1: Basic Box Model
+            </button>
+            <button class="lesson-btn" data-lesson="2">
+                <span class="emoji">🎯</span>
+                Lesson 2: Dimensions & Spacing
+            </button>
+            <button class="lesson-btn" data-lesson="3">
+                <span class="emoji">🔄</span>
+                Lesson 3: Magic Box Sizing
+            </button>
+            <button class="lesson-btn" data-lesson="4">
+                <span class="emoji">🎯</span>
+                Lesson 4: Clockwise Rule
+            </button>
+        </div>
+
+        <!-- Lesson 1: Basic Box Model -->
+        <div class="lesson" id="lesson1">
+            <div class="lesson-content">
+                <div class="theory-section">
+                    <h2>Build your Box Model!</h2>
+                    <p>Drag each element to its correct zone to build the Box Model:</p>
+                    <div class="elements-to-drag">
+                        <div class="draggable" draggable="true" data-type="margin">Margin</div>
+                        <div class="draggable" draggable="true" data-type="border">Border</div>
+                        <div class="draggable" draggable="true" data-type="padding">Padding</div>
+                        <div class="draggable" draggable="true" data-type="content">Content</div>
+                    </div>
+                </div>
+
+                <div class="interactive-area">
+                    <div class="box-model-visual">
+                        <div class="margin-zone drop-zone" data-zone="margin">
+                            <div class="border-zone drop-zone" data-zone="border">
+                                <div class="padding-zone drop-zone" data-zone="padding">
+                                    <div class="content-zone drop-zone" data-zone="content">
+                                        <span class="zone-label">Drop here!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lesson 2: Dimensions & Spacing -->
+        <div class="lesson hidden" id="lesson2">
+            <div class="lesson-content">
+                <h2>Adjust Dimensions</h2>
+                <div class="two-boxes-container">
+                    <div class="box-wrapper">
+                        <h3>Element 1</h3>
+                        <div class="interactive-box" id="box1">
+                            <div class="box-content">Element 1</div>
+                            <div class="dimension-labels">
+                                <span class="width-label">width: 200px</span>
+                                <span class="height-label">height: 150px</span>
+                                <span class="margin-label">margin: 10px</span>
+                                <span class="padding-label">padding: 20px</span>
+                                <span class="border-label">border: 2px</span>
+                            </div>
+                        </div>
+                        <div class="box-controls">
+                            <div class="control-group">
+                                <label>Width:</label>
+                                <input type="range" class="dimension-control" data-box="1" data-property="width" min="100" max="300" value="200">
+                                <span class="value-display">200px</span>
+                            </div>
+                            <div class="control-group">
+                                <label>Height:</label>
+                                <input type="range" class="dimension-control" data-box="1" data-property="height" min="100" max="300" value="150">
+                                <span class="value-display">150px</span>
+                            </div>
+                            <div class="control-group margin-controls">
+                                <h4>Margin:</h4>
+                                <div class="directional-controls">
+                                    <div class="control-row">
+                                        <label>Top:</label>
+                                        <input type="range" class="dimension-control" data-box="1" data-property="margin" data-direction="top" min="0" max="50" value="10">
+                                        <span class="value-display">10px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Right:</label>
+                                        <input type="range" class="dimension-control" data-box="1" data-property="margin" data-direction="right" min="0" max="50" value="10">
+                                        <span class="value-display">10px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Bottom:</label>
+                                        <input type="range" class="dimension-control" data-box="1" data-property="margin" data-direction="bottom" min="0" max="50" value="10">
+                                        <span class="value-display">10px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Left:</label>
+                                        <input type="range" class="dimension-control" data-box="1" data-property="margin" data-direction="left" min="0" max="50" value="10">
+                                        <span class="value-display">10px</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group padding-controls">
+                                <h4>Padding:</h4>
+                                <div class="directional-controls">
+                                    <div class="control-row">
+                                        <label>Top:</label>
+                                        <input type="range" class="dimension-control" data-box="1" data-property="padding" data-direction="top" min="0" max="50" value="20">
+                                        <span class="value-display">20px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Right:</label>
+                                        <input type="range" class="dimension-control" data-box="1" data-property="padding" data-direction="right" min="0" max="50" value="20">
+                                        <span class="value-display">20px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Bottom:</label>
+                                        <input type="range" class="dimension-control" data-box="1" data-property="padding" data-direction="bottom" min="0" max="50" value="20">
+                                        <span class="value-display">20px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Left:</label>
+                                        <input type="range" class="dimension-control" data-box="1" data-property="padding" data-direction="left" min="0" max="50" value="20">
+                                        <span class="value-display">20px</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Border:</label>
+                                <input type="range" class="dimension-control" data-box="1" data-property="border" min="0" max="20" value="2">
+                                <span class="value-display">2px</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-wrapper">
+                        <h3>Element 2</h3>
+                        <div class="interactive-box" id="box2">
+                            <div class="box-content">Element 2</div>
+                            <div class="dimension-labels">
+                                <span class="width-label">width: 200px</span>
+                                <span class="height-label">height: 150px</span>
+                                <span class="margin-label">margin: 10px</span>
+                                <span class="padding-label">padding: 20px</span>
+                                <span class="border-label">border: 2px</span>
+                            </div>
+                        </div>
+                        <div class="box-controls">
+                            <div class="control-group">
+                                <label>Width:</label>
+                                <input type="range" class="dimension-control" data-box="2" data-property="width" min="100" max="300" value="200">
+                                <span class="value-display">200px</span>
+                            </div>
+                            <div class="control-group">
+                                <label>Height:</label>
+                                <input type="range" class="dimension-control" data-box="2" data-property="height" min="100" max="300" value="150">
+                                <span class="value-display">150px</span>
+                            </div>
+                            <div class="control-group margin-controls">
+                                <h4>Margin:</h4>
+                                <div class="directional-controls">
+                                    <div class="control-row">
+                                        <label>Top:</label>
+                                        <input type="range" class="dimension-control" data-box="2" data-property="margin" data-direction="top" min="0" max="50" value="10">
+                                        <span class="value-display">10px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Right:</label>
+                                        <input type="range" class="dimension-control" data-box="2" data-property="margin" data-direction="right" min="0" max="50" value="10">
+                                        <span class="value-display">10px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Bottom:</label>
+                                        <input type="range" class="dimension-control" data-box="2" data-property="margin" data-direction="bottom" min="0" max="50" value="10">
+                                        <span class="value-display">10px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Left:</label>
+                                        <input type="range" class="dimension-control" data-box="2" data-property="margin" data-direction="left" min="0" max="50" value="10">
+                                        <span class="value-display">10px</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group padding-controls">
+                                <h4>Padding:</h4>
+                                <div class="directional-controls">
+                                    <div class="control-row">
+                                        <label>Top:</label>
+                                        <input type="range" class="dimension-control" data-box="2" data-property="padding" data-direction="top" min="0" max="50" value="20">
+                                        <span class="value-display">20px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Right:</label>
+                                        <input type="range" class="dimension-control" data-box="2" data-property="padding" data-direction="right" min="0" max="50" value="20">
+                                        <span class="value-display">20px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Bottom:</label>
+                                        <input type="range" class="dimension-control" data-box="2" data-property="padding" data-direction="bottom" min="0" max="50" value="20">
+                                        <span class="value-display">20px</span>
+                                    </div>
+                                    <div class="control-row">
+                                        <label>Left:</label>
+                                        <input type="range" class="dimension-control" data-box="2" data-property="padding" data-direction="left" min="0" max="50" value="20">
+                                        <span class="value-display">20px</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label>Border:</label>
+                                <input type="range" class="dimension-control" data-box="2" data-property="border" min="0" max="20" value="2">
+                                <span class="value-display">2px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lesson 3: Magic Box Sizing -->
+        <div class="lesson hidden" id="lesson3">
+            <div class="lesson-content">
+                <h2>The Magic of Box Sizing! 🎩✨</h2>
+                <div class="box-sizing-demo">
+                    <div class="sizing-boxes">
+                        <div class="sizing-box content-box">
+                            <h3>Content Box</h3>
+                            <div class="demo-element" id="contentBoxDemo">
+                                <div class="box-inner">
+                                    <p>Total Width: <span class="total-width">200px</span></p>
+                                    <p>Total Height: <span class="total-height">150px</span></p>
+                                    <p>Content Width: <span class="content-width">160px</span></p>
+                                    <p>Content Height: <span class="content-height">110px</span></p>
+                                </div>
+                                <div class="box-arrows">
+                                    <div class="arrow-label width-arrow">total width</div>
+                                    <div class="arrow-label height-arrow">total height</div>
+                                </div>
+                            </div>
+                            <div class="box-formula">
+                                Total = width/height + (padding × 2) + (border × 2)
+                            </div>
+                        </div>
+
+                        <div class="sizing-box border-box">
+                            <h3>Border Box</h3>
+                            <div class="demo-element" id="borderBoxDemo">
+                                <div class="box-inner">
+                                    <p>Total Width: <span class="total-width">200px</span></p>
+                                    <p>Total Height: <span class="total-height">150px</span></p>
+                                    <p>Content Width: <span class="content-width">160px</span></p>
+                                    <p>Content Height: <span class="content-height">110px</span></p>
+                                </div>
+                                <div class="box-arrows">
+                                    <div class="arrow-label width-arrow">fixed width</div>
+                                    <div class="arrow-label height-arrow">fixed height</div>
+                                </div>
+                            </div>
+                            <div class="box-formula">
+                                Content = width/height - (padding × 2) - (border × 2)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sizing-controls">
+                        <div class="control-group">
+                            <label>Width:</label>
+                            <input type="range" id="sizingWidth" min="150" max="400" value="200">
+                            <span class="value-display">200px</span>
+                        </div>
+                        <div class="control-group">
+                            <label>Height:</label>
+                            <input type="range" id="sizingHeight" min="100" max="300" value="150">
+                            <span class="value-display">150px</span>
+                        </div>
+                        <div class="control-group">
+                            <label>Padding:</label>
+                            <input type="range" id="sizingPadding" min="0" max="50" value="20">
+                            <span class="value-display">20px</span>
+                        </div>
+                        <div class="control-group">
+                            <label>Border:</label>
+                            <input type="range" id="sizingBorder" min="0" max="20" value="2">
+                            <span class="value-display">2px</span>
+                        </div>
+                        <div class="control-group">
+                            <label>Margin:</label>
+                            <input type="range" id="sizingMargin" min="0" max="50" value="10">
+                            <span class="value-display">10px</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lesson 4: Clockwise Rule -->
+        <div class="lesson hidden" id="lesson4">
+            <div class="lesson-content">
+                <h2>The Clockwise Rule! 🕒</h2>
+                <p class="lesson-description">Learn how CSS properties follow the clockwise direction: Top, Right, Bottom, Left</p>
+                
+                <div class="clockwise-demo">
+                    <div class="interactive-box-container">
+                        <div class="clockwise-box">
+                            <div class="direction-indicators">
+                                <span class="direction top">Top</span>
+                                <span class="direction right">Right</span>
+                                <span class="direction bottom">Bottom</span>
+                                <span class="direction left">Left</span>
+                            </div>
+                            <div class="demo-content">Box Content</div>
+                        </div>
+                    </div>
+
+                    <div class="clockwise-controls">
+                        <div class="property-section">
+                            <h3>🎨 Select Property</h3>
+                            <div class="property-selector">
+                                <button class="property-btn active" data-property="margin">Margin</button>
+                                <button class="property-btn" data-property="padding">Padding</button>
+                                <button class="property-btn" data-property="border">Border</button>
+                            </div>
+                        </div>
+
+                        <div class="value-inputs">
+                            <div class="input-group">
+                                <label>Top:</label>
+                                <input type="range" class="clockwise-input" data-direction="top" min="0" max="50" value="10">
+                                <span class="value-display">10px</span>
+                            </div>
+                            <div class="input-group">
+                                <label>Right:</label>
+                                <input type="range" class="clockwise-input" data-direction="right" min="0" max="50" value="10">
+                                <span class="value-display">10px</span>
+                            </div>
+                            <div class="input-group">
+                                <label>Bottom:</label>
+                                <input type="range" class="clockwise-input" data-direction="bottom" min="0" max="50" value="10">
+                                <span class="value-display">10px</span>
+                            </div>
+                            <div class="input-group">
+                                <label>Left:</label>
+                                <input type="range" class="clockwise-input" data-direction="left" min="0" max="50" value="10">
+                                <span class="value-display">10px</span>
+                            </div>
+                        </div>
+
+                        <div class="shorthand-display">
+                            <h3>✨ Shorthand Syntax</h3>
+                            <div class="code-display">
+                                <code class="property-name">margin</code>: <span class="shorthand-value">10px 10px 10px 10px</span>;
+                            </div>
+                            <div class="shorthand-explanation">
+                                Values follow clockwise order: top, right, bottom, left
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feedback">
+            <p class="feedback-text">Start exploring the Box Model!</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <p class="copyright">© <span id="currentYear"></span> Box Model Learning Tool</p>
+                <p class="credits">Created by <span class="author">NixDev</span> for <span class="program">Programa Supérate</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
+
